@@ -1,0 +1,64 @@
+
+<form (ngSubmit)="salvar()">
+  <div class="mb-3">
+    <label for="exampleInputText1"class="form-label">Nome:</label>
+    <input type="text" class="form-control" [disabled]="modo ? true : false"  name="exampleInputNome1" aria-describedby="emailHelp"
+      [(ngModel)]="item.nome">
+  </div>
+  <div class="mb-3">
+    <select [(ngModel)]="item.tamanho" [disabled]="modo ? true : false"  class="form-select" aria-label="Default select example" name="select1">
+      <option [ngValue]="undefined">Selecione um Tamanho</option>
+      <option *ngFor="let option of options" [value]="option">
+        {{ option }}
+    </select>
+  </div>
+  <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Valor</span>
+    <input type="number" class="form-control" [disabled]="modo ? true : false"  name="valorInput1" aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-sm" [(ngModel)]="item.valor">
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+    <input type="checkbox" name="abc" [disabled]="modo ? true : false"  [(ngModel)]="item.possuiSabores"> Possui sabores
+  </div>
+  <div *ngIf="item.possuiSabores">
+    <button type="button" class="btn btn-primary" [disabled]="modo ? true : false"  (click)="abrirModal(modal1)">Vincular sabores</button>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#ID</th>
+          <th scope="col">Sabores</th>
+          <th scope="col" class="colspan-2">Acoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sabor of item.sabores let i = index">
+          <th scope="row">{{ sabor.id }}</th>
+          <td> {{ sabor.nome }} </td>
+          <td>
+            <button type="button" class="btn btn-danger" [disabled]="modo ? true : false"  (click)="deletar(sabor,i)">Deletar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </div>
+</form>
+
+<ng-template #modal1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sabores lista</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <app-saboreslista [modoLancamento]="true" (retorno)="retornoSaboresLista($event)"></app-saboreslista>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

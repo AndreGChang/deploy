@@ -1,0 +1,54 @@
+<div class="container">
+  <h3 class="alert alert-primary">Recibo!</h3>
+  <label for="exampleInputText1" class="form-label">Nome:</label>
+  <input class="form-control" name="exampleInputText1" type="text" value="{{pedido.nome}}"
+    aria-label="Disabled input example" disabled readonly>
+  <label for="exampleInputText1" class="form-label">Data e hora:</label>
+  <input class="form-control" name="exampleInputText1" type="text" value="{{pedido.dataHora | date:'short'}}"
+    aria-label="Disabled input example" disabled readonly>
+  <div class="mb-3">
+    <select [(ngModel)]="pedido.entrega" [disabled]="modo ? true : false" class="form-select"
+      aria-label="Default select example" name="select1">
+      <option [ngValue]="undefined">Selecione uma Opção</option>
+      <option [ngValue]="true">Entregar</option>
+      <option [ngValue]="false">Balcao</option>
+    </select>
+  </div>
+
+  <div class="form-floating mb-3">
+    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled"
+      style="height: 100px" disabled>{{pedido.observacao}}</textarea>
+    <label for="floatingTextarea2Disabled">Observacao</label>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">tamanho</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Valor</th>
+        <th scope="col" class="colspan-2">Acoes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pedido.item">
+        <th scope="row">{{ item.id }}</th>
+        <td> {{ item.tamanho }} </td>
+        <td> {{ item.nome }} </td>
+        <td> {{ item.valor }} </td>
+        <td>
+          <table class="table table-striped">
+            <tbody class="table table-striped">
+              <tr *ngFor="let sabor of item.sabores">
+                <th scope="row">{{ sabor.id }}</th>
+                <td> {{ sabor.nome }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

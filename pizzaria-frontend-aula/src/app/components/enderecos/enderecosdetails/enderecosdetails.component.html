@@ -1,0 +1,25 @@
+
+<form (ngSubmit)="salvar()" [formGroup]="form">
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">CEP:</label>
+    <input type="text" class="form-control" formControlName="cep" placeholder="CEP" name="exampleInputTelefone1" [(ngModel)]="endereco.cep">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputText1" class="form-label">Rua:</label>
+    <input type="text" class="form-control" formControlName="rua" placeholder="Rua" name="exampleInputNome1" aria-describedby="emailHelp" [(ngModel)]="endereco.rua">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Bairro:</label>
+    <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro" name="exampleInputTelefone2" [(ngModel)]="endereco.bairro">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Cidade:</label>
+    <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade" name="exampleInputTelefone3" [(ngModel)]="endereco.cidade">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">UF:</label>
+    <input type="text" class="form-control" formControlName="uf" placeholder="UF" name="exampleInputTelefone4" [(ngModel)]="endereco.uf">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

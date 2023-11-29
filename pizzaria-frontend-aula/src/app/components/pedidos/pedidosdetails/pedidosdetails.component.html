@@ -1,0 +1,118 @@
+<form (ngSubmit)="salvar()" enctype="multipart/form-data">
+  <div>
+    {{pedido.valorTotal}}
+  </div>
+
+  <h2 *ngIf="pedido.usuario == null">Nenhum usuário associado</h2>
+  <h2 *ngIf="pedido.usuario != null">Usuário: {{pedido.usuario.nome}}</h2>
+  <button type="button" class="btn btn-primary" *ngIf="modo == false" (click)="lancarUsuario(modal2)">Vincular
+    usuário</button>
+  <button type="button" class="btn btn-primary" *ngIf="modo == true" disabled (click)="lancarUsuario(modal2)">Vincular
+    usuário</button>
+  <div class="mb-3">
+    <label for="exampleInputText1" class="form-label">Nome:</label>
+    <input type="text" class="form-control" *ngIf="modo != true" name="exampleInputNome1" aria-describedby="emailHelp"
+      [(ngModel)]="pedido.nome">
+    <input type="text" class="form-control" *ngIf="modo == true" disabled name="exampleInputNome1"
+      aria-describedby="emailHelp" [(ngModel)]="pedido.nome">
+  </div>
+  <div class="mb-3">
+    <div class="form-floating ">
+      <textarea class="form-control" *ngIf="modo == false" placeholder="Leave a comment here"
+        [(ngModel)]="pedido.observacao" name="floatingTextarea2" style="height: 100px"></textarea>
+      <label for="floatingTextarea2" *ngIf="modo == false">Observacao</label>
+
+      <textarea class="form-control" *ngIf="modo == true" disabled placeholder="Leave a comment here"
+        [(ngModel)]="pedido.observacao" name="floatingTextareaDisabled" style="height: 100px"></textarea>
+      <label for="floatingTextareaDisabled" *ngIf="modo == true" disabled>Observacao</label>
+    </div>
+  </div>
+  <div class="mb-3">
+    <select [(ngModel)]="pedido.entrega" [disabled]="modo ? true : false" class="form-select" aria-label="Default select example" name="select1">
+      <option [ngValue]="undefined">Selecione uma Opção</option>
+      <option [ngValue]="true">Entregar</option>
+      <option [ngValue]="false">Balcao</option>
+    </select>
+  </div>
+
+  <button type="button" class="btn btn-primary" *ngIf="modo == false" (click)="lancar(modal1)">Lançar item</button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">tamanho</th>
+        <th scope="col">Nome</th>
+        <th scope="col-2">Sabores</th>
+        <th scope="col">Acoes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pedido.item; let i = index">
+        <th scope="row">{{ item.id }}</th>
+        <td> {{ item.tamanho }} </td>
+        <td> {{ item.nome }} </td>
+        <td *ngFor="let sabor of item.sabores">
+          {{item.nome}}
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" *ngIf="modo == false" (click)="deletar(item,i)">Deletar</button>
+          <button type="button" class="btn btn-danger" *ngIf="modo == true" disabled
+            (click)="deletar(item,i)">Deletar</button>
+          <button type="button" class="btn btn-primary" *ngIf="modo == true" (click)="verItens(modal3, item, i)">Ver
+            item</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- criar componenet modal de enderecos lista -->
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+
+<ng-template #modal1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Item lista</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <app-itemslista [modoLancamento]="true" [modo]="true" (retorno)="retornoItemLista($event)"></app-itemslista>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #modal2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Pessoas lista</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <app-pessoaslista [modoLancamento]="true" (usuarioRetorno)="receberUsuario($event)"></app-pessoaslista>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #modal3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Item details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <app-itemsdetails [modo]="true" [item]="itemSelecionadoParaEdicao"></app-itemsdetails>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

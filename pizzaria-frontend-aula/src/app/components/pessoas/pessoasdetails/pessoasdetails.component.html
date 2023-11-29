@@ -1,0 +1,83 @@
+<p>pessoasdetails works!</p>
+<form (ngSubmit)="salvar()" [formGroup]="form">
+
+  <div class="mb-3">
+    <div class="input-group">
+      <input class="form-control" type="text" formControlName="nome" placeholder="Nome" [(ngModel)]="usuario.nome">
+    </div>
+    <div *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched">
+      Este campo é obrigatório.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="input-group">
+      <input class="form-control" type="text" formControlName="telefone" placeholder="Telefone" [(ngModel)]="usuario.telefone">
+    </div>
+    <div *ngIf="form.get('telefone')?.hasError('telefoneInvalid') && form.get('telefone')?.touched"
+        [(ngModel)]="usuario.telefone">
+        Telefone inválido.
+      </div>
+    <div class="form-text" id="basic-addon4">+45999502392</div>
+  </div>
+
+  <div class="mb-3">
+    <div class="input-group">
+      <input class="form-control" type="text" formControlName="cpf" placeholder="CPF" [(ngModel)]="usuario.cpf">
+    </div>
+    <div *ngIf="form.get('cpf')?.hasError('cpfInvalid') && form.get('cpf')?.touched" >CPF
+      inválido.</div>
+    <div class="form-text" id="basic-addon4">000.000.000-00</div>
+  </div>
+
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Salvar</button>
+  </div>
+</form>
+
+<button class="btn btn-warning" (click)="adicionarEndereco(modal1)" [disabled]="form.invalid">Adicionar
+  Endereco</button>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">CEP</th>
+      <th scope="col">Rua</th>
+      <th scope="col">Bairro</th>
+      <th scope="col">Cidade</th>
+      <th scope="col">UF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let endereco of usuario.enderecos; let i = index">
+      <th scope="row">{{ endereco.id }}</th>
+      <td> {{ endereco.cep }} </td>
+      <td> {{ endereco.rua }} </td>
+      <td> {{ endereco.bairro }} </td>
+      <td> {{ endereco.cidade }} </td>
+      <td> {{ endereco.uf }} </td>
+
+      <td>
+        <button class="btn btn-primary" (click)="editarEndereco(modal1, endereco, i)">Editar</button>
+        <button class="btn btn-danger" (click)="deletar(endereco, i)">Deletar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #modal1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Endereco details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-enderecosdetails [endereco]="enderecoSelecionadoParaEdicao"
+      (retorno)="retornoEndereco($event)"></app-enderecosdetails>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
