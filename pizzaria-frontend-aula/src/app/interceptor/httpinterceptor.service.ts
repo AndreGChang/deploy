@@ -28,11 +28,11 @@ export class HttpinterceptorService implements HttpInterceptor{
 
   private errorHandler(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401) {
-      alert('401 - tratar');
+      alert('401 - nao autorizado');
       this.router.navigateByUrl('/login');
       return of(err.message);
     } else if (err.status === 403) {
-      alert('403 - tratar');
+      alert('403 - acesso negado');
       return of(err.message);
     }
     return throwError(() => err);

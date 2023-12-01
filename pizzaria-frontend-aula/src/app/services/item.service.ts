@@ -8,7 +8,8 @@ import { Item } from '../model/item';
 })
 export class ItemService {
 
-  API: string = "http://localhost:8080/api/itens";
+  API: string = "http://18.188.69.71:8080/api/itens";
+  // API = 'http://localhost:8080/api/itens'
   http = inject(HttpClient);
 
 

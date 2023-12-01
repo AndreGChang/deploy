@@ -25,7 +25,7 @@ export class PessoasdetailsComponent implements OnInit {
   indiciSelecionadoParaEdicao!: number;
 
   constructor(private toastSvc: ToastrService, private fb: FormBuilder) {
-
+    this.usuario.username= '';
   }
 
   ngOnInit() {

@@ -8,7 +8,8 @@ import { Injectable, inject } from '@angular/core';
 })
 export class UsuarioService {
 
-  API: string = 'http://localhost:8080/api/usuario';
+  API: string = 'http://18.188.69.71:8080/api/usuario';
+  // API = 'http://localhost:8080/api/usuario'
   http = inject(HttpClient);
 
   constructor() { }

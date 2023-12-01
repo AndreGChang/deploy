@@ -8,6 +8,7 @@ import { Item } from 'src/app/model/item';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { PedidoslistaComponent } from '../pedidoslista/pedidoslista.component';
 import { ToastrService } from 'ngx-toastr';
+import { ItemService } from 'src/app/services/item.service';
 
 
 
@@ -25,6 +26,7 @@ export class PedidosdetailsComponent {
   @Output() retorno = new EventEmitter<Pedido>();
   @Input() modo: boolean = false;
 
+  itemService = inject(ItemService);
   pedidoService = inject(PedidoService);
   modalService = inject(NgbModal);
   modalRef!: NgbModalRef
@@ -66,6 +68,12 @@ export class PedidosdetailsComponent {
 
   editarEndereco(modal: any, pedido: Pedido, indice: number) {
     this.pedidoSelecionadoParaEdicao = Object.assign({}, pedido);
+    this.indiceSelecionadoParaEdicao = indice;
+    this.modalRef = this.modalService.open(modal, { size: "lg" });
+  }
+
+  editarItem(modal : any, item : Item, indice : number){
+    this.itemSelecionadoParaEdicao  =Object.assign({}, item);
     this.indiceSelecionadoParaEdicao = indice;
     this.modalRef = this.modalService.open(modal, { size: "lg" });
   }

@@ -65,7 +65,6 @@ export class SaboreslistaComponent {
   }
 
   addOuEditarPessoa(sabores: Sabores) {
-    alert("sabor cadastrado com sucesso");
     this.listAll();
     this.modalService.dismissAll();
   }

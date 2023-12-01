@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SaborService {
 
-  API: string = "http://localhost:8080/api/sabores";
+  API: string = "http://18.188.69.71:8080/api/sabores";
+  // API = 'http://localhost:8080/api/sabores'
   http = inject(HttpClient);
 
   constructor() { }

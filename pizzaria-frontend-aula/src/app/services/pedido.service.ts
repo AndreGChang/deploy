@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PedidoService {
 
-  API: string = 'http://localhost:8080/api/pedido'
+  API: string = 'http://18.188.69.71:8080/api/pedido'
+  // API = 'http://localhost:8080/api/pedido'
   http = inject(HttpClient);
 
   constructor() { }
