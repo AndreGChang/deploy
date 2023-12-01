@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +59,15 @@ public class UsuarioService {
         }
     }
 
-//    public UsuarioDTO criar(UsuarioDTO usuarioDTO){
-//
-//        Usuario usuariotemp = usuarioDTOConvert.convertUsuarioDTOToUsuario(usuarioDTO);
-//
-//        this.usuarioRepository.save(usuariotemp);
-//
-//       return usuarioDTOConvert.convertUsuarioToUsuarioDTO(usuariotemp);
-//    }
+
+    public UsuarioDTO criar(UsuarioDTO usuarioDTO){
+
+        Usuario usuariotemp = usuarioDTOConvert.convertUsuarioDTOToUsuario(usuarioDTO);
+
+        this.usuarioRepository.save(usuariotemp);
+
+       return usuarioDTOConvert.convertUsuarioToUsuarioDTO(usuariotemp);
+    }
 
     public List<UsuarioDTO> findByNome(String nome){
         List<Usuario> usuarioBanco = this.usuarioRepository.findPessoaByNome(nome);

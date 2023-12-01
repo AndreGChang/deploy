@@ -1,6 +1,7 @@
 package app.pizzariatop.controller;
 
 import app.pizzariatop.dto.UsuarioDTO;
+import app.pizzariatop.entity.Usuario;
 import app.pizzariatop.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class UsuarioController {
     @PostMapping("/cadastro")
     public ResponseEntity<UsuarioDTO> criar(@RequestBody UsuarioDTO usuarioDTO){
         try{
-            return ResponseEntity.ok(usuarioService.registrar(usuarioDTO));
+            return ResponseEntity.ok(usuarioService.criar(usuarioDTO));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
